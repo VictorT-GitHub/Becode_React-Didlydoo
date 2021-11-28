@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Form from "./components/Form/Form";
+import Event from "./components/Event/Event";
+import "./app.css";
 
 function App() {
+  // USE-STATE
+  const [eventsList, setEventsList] = useState([]);
+
+  // USE-EFFECT (FETCH GET) (UPDATE [eventsList])
+  useEffect(() => {
+    fetch("http://localhost:9000/api/events")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        let fetchEventsArray = [];
+        data.map((event) => fetchEventsArray.push(event));
+        setEventsList(fetchEventsArray);
+      });
+  }, []);
+
+  // ---------- JSX ----------
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header>
+        <h1>Didlydoo</h1>
       </header>
-    </div>
+
+      <main>
+        <Form setEventsList={setEventsList} />
+
+        <ul id="allEventsContainer">
+          {eventsList.map((event) => (
+            <Event event={event} key={event.id} />
+          ))}
+        </ul>
+      </main>
+    </>
   );
 }
 
