@@ -1,16 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import DateInputs from "./DateInputs/DateInputs";
 
-const Form = ({ setEventsList }) => {
+const Form = ({ dateInputs, setDateInputs, fetchGetEvents, dateRef }) => {
   // ---------- USE-REF ----------
   const nameRef = useRef();
-  const dateRef = useRef();
   const authorRef = useRef();
   const descriptionRef = useRef();
-
-  // ---------- USE-STATE ----------
-  const [dateInputs, setDateInputs] = useState([]);
 
   // ---------- FUNCTIONS ----------
   const addDateInput = (e) => {
@@ -28,7 +24,6 @@ const Form = ({ setEventsList }) => {
     ) {
       const dateInputsValues = [];
       dateInputs.map((dateInput) => dateInputsValues.push(dateInput.date));
-      console.log(dateInputsValues);
 
       fetch("http://localhost:9000/api/events", {
         method: "POST",
@@ -41,16 +36,7 @@ const Form = ({ setEventsList }) => {
           author: authorRef.current.value,
           description: descriptionRef.current.value,
         }),
-      }).then(() => {
-        fetch("http://localhost:9000/api/events")
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            let fetchEventsArray = [];
-            data.map((event) => fetchEventsArray.push(event));
-            setEventsList(fetchEventsArray);
-          });
-      });
+      }).then(() => fetchGetEvents());
     }
   };
 

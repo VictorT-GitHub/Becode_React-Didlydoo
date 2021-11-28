@@ -29,8 +29,6 @@ const SectionGrid = ({ event }) => {
     });
   });
 
-  console.log(datesPerAttendees);
-
   // ---------- JSX ----------
   return (
     <section
