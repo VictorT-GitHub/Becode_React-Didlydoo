@@ -1,4 +1,20 @@
-# Getting Started with Create React App
+# Becode_React-Didlydoo
+
+Frontend React.js project - Doodle clone with excalidraw style
+
+Our coach at Becode provided us the backend part
+
+**React.js** - **UUID** - **ESLint**
+
+## Screenshots
+
+![REACT.js didlydoo screenshot 1](./screenshots-readme/dislydooreactscreenshot1.png)
+
+![REACT.js didlydoo screenshot 2](./screenshots-readme/didlydooreactscreenshot2.png)
+
+![REACT.js didlydoo screenshot 3](./screenshots-readme/screenshotsdidlydooreact3.png)
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +83,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
