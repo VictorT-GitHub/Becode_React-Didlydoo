@@ -13,36 +13,48 @@ const Form = ({
   authorRef,
   descriptionRef,
 }) => {
-  // -- Functions --
+  // -- Functions & Fetch --
   const addDateInput = (e) => {
     e.preventDefault();
     setDateInputs([...dateInputs, { id: uuidv4() }]);
   };
 
-  const fetchPostEvent = (e) => {
+  const fetchPostEvent = async (e) => {
     e.preventDefault();
-    if (
-      nameRef.current.value &&
-      dateRef.current.value &&
-      authorRef.current.value &&
-      descriptionRef.current.value
-    ) {
-      const dateInputsValues = [];
-      dateInputs.map((dateInput) => dateInputsValues.push(dateInput.date));
 
-      fetch("http://localhost:9000/api/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: nameRef.current.value,
-          dates: [dateRef.current.value, ...dateInputsValues],
-          author: authorRef.current.value,
-          description: descriptionRef.current.value,
-        }),
-      }).then(() => fetchGetEvents());
+    if (
+      !nameRef.current.value ||
+      !dateRef.current.value ||
+      !authorRef.current.value ||
+      !descriptionRef.current.value
+    ) {
+      return alert("Please complete all fields");
     }
+
+    // Data Manipulation (Cannot keep "id" field for the fetch)
+    const dateInputsValues = [];
+    dateInputs.map((dateInput) => dateInputsValues.push(dateInput.date));
+
+    await fetch("http://localhost:9000/api/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: nameRef.current.value,
+        dates: [dateRef.current.value, ...dateInputsValues],
+        author: authorRef.current.value,
+        description: descriptionRef.current.value,
+      }),
+    });
+
+    nameRef.current.value = "";
+    dateRef.current.value = "";
+    authorRef.current.value = "";
+    descriptionRef.current.value = "";
+    setDateInputs([]); // Reset dates inputs list & DOM display
+
+    fetchGetEvents(); // Reset events list & DOM display
   };
 
   // -- JSX --

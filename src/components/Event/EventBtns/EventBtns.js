@@ -5,6 +5,7 @@ const EventBtns = ({
   event,
   fetchGetEvents,
   dateInputs,
+  setDateInputs,
   nameRef,
   dateRef,
   authorRef,
@@ -12,7 +13,7 @@ const EventBtns = ({
   eventsList,
   setEventsList,
 }) => {
-  // -- Functions --
+  // -- Functions & Fetch --
   const fetchPatchEvent = async () => {
     const dataRaw = {
       name: nameRef.current.value,
@@ -20,7 +21,7 @@ const EventBtns = ({
       description: descriptionRef.current.value,
     };
 
-    // Data ready to go === data not empty (!== "")
+    // Data ready to go === data raw not empty (!== "")
     const dataReadyToGo = {};
     for (const key in dataRaw) {
       if (dataRaw[key].trim().length > 0) dataReadyToGo[key] = dataRaw[key];
@@ -34,10 +35,15 @@ const EventBtns = ({
       body: JSON.stringify(dataReadyToGo),
     });
 
-    fetchGetEvents();
+    nameRef.current.value = "";
+    authorRef.current.value = "";
+    descriptionRef.current.value = "";
+
+    fetchGetEvents(); // Reset events list & DOM display
   };
 
   const fetchAddDates = async () => {
+    // Data Manipulation (Cannot keep "id" field for the fetch)
     const dateInputsValues = [];
     dateInputs.map((dateInput) => dateInputsValues.push(dateInput.date));
 
@@ -51,7 +57,10 @@ const EventBtns = ({
       }),
     });
 
-    fetchGetEvents();
+    dateRef.current.value = "";
+    setDateInputs([]); // Reset dates inputs list & DOM display
+
+    fetchGetEvents(); // Reset events list & DOM display
   };
 
   const fetchDeleteEvent = async (id) => {
@@ -59,8 +68,7 @@ const EventBtns = ({
       method: "DELETE",
     });
 
-    // -- Dont need to fetch here --
-    // fetchGetEvents();
+    // Reset events list & DOM display (no need to fetch here)
     const newEventsList = eventsList.filter((event) => event.id !== id);
     setEventsList(newEventsList);
   };

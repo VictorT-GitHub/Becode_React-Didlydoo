@@ -3,15 +3,21 @@ import { v4 as uuidv4 } from "uuid";
 
 const PostAttendees = ({ event, fetchGetEvents }) => {
   // -- Data Manipulation --
+  // We cannot keep "attendees" field for postNewAttendees() fetch
   const newDatesArray = [];
-  // We cannot keep "attendees" field for postNewAttendees()
   event.dates.forEach((date) => {
     const newDateObject = {};
     newDateObject.date = date.date;
     newDatesArray.push(newDateObject);
   });
 
-  // -- Functions --
+  // -- UseRef --
+  const username = useRef();
+
+  // -- useState --
+  const [attendDates, setAttendDates] = useState(newDatesArray);
+
+  // -- Functions & Fetch --
   const postNewAttendees = async () => {
     await fetch(`http://localhost:9000/api/events/${event.id}/attend`, {
       method: "POST",
@@ -24,30 +30,28 @@ const PostAttendees = ({ event, fetchGetEvents }) => {
       }),
     });
 
-    setAttendDates(newDatesArray);
+    username.current.value = ""; // Reset username input value
 
-    fetchGetEvents();
+    setAttendDates(newDatesArray); // Reset availabity array
+
+    fetchGetEvents(); // Reset events list & DOM display
   };
 
-  const handleAvailabilityYES = (date) => {
+  // Availability boolean update
+  const handleClick = (e, date, boolean) => {
+    e.target.textContent = "x";
+
     const newAttDates = [...attendDates];
     const attdate = newAttDates.find((attendDate) => attendDate.date === date);
-    attdate.available = true;
+    attdate.available = boolean;
     setAttendDates(newAttDates);
   };
 
-  const handleAvailabilityNO = (date) => {
-    const newAttDates = [...attendDates];
-    const attdate = newAttDates.find((attendDate) => attendDate.date === date);
-    attdate.available = false;
-    setAttendDates(newAttDates);
+  // Btns textContent update
+  const handleClickDOM = (e) => {
+    e.target.textContent = "x";
+    console.log(e.target.textContent);
   };
-
-  // -- UseRef --
-  const username = useRef();
-
-  // -- useState --
-  const [attendDates, setAttendDates] = useState(newDatesArray);
 
   // -- JSX --
   return (
@@ -63,13 +67,10 @@ const PostAttendees = ({ event, fetchGetEvents }) => {
         <div key={uuidv4()} className="inputsBtns flexCenter">
           <button
             className="avBtn"
-            onClick={() => handleAvailabilityYES(date.date)}
+            onClick={(e) => handleClick(e, date.date, true)}
           ></button>
 
-          <button
-            className="avBtn"
-            onClick={() => handleAvailabilityNO(date.date)}
-          ></button>
+          <button className="avBtn" onClick={handleClickDOM}></button>
         </div>
       ))}
     </>

@@ -8,6 +8,7 @@ const Event = ({
   event,
   fetchGetEvents,
   dateInputs,
+  setDateInputs,
   nameRef,
   dateRef,
   authorRef,
@@ -28,6 +29,7 @@ const Event = ({
             event={event}
             fetchGetEvents={fetchGetEvents}
             dateInputs={dateInputs}
+            setDateInputs={setDateInputs}
             nameRef={nameRef}
             dateRef={dateRef}
             authorRef={authorRef}

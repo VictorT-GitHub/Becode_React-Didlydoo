@@ -19,7 +19,7 @@ function App() {
   useEffect(() => fetchGetEvents(), []);
 
   // -- Functions --
-  // Function Fetch GET all events -> setEventsList()
+  // Function Fetch GET all events -> trigger setEventsList() useState
   const fetchGetEvents = () => {
     fetch("http://localhost:9000/api/events")
       .then((res) => res.json())
@@ -51,6 +51,7 @@ function App() {
               event={event}
               fetchGetEvents={fetchGetEvents}
               dateInputs={dateInputs}
+              setDateInputs={setDateInputs}
               nameRef={nameRef}
               dateRef={dateRef}
               authorRef={authorRef}
