@@ -1,7 +1,9 @@
 import React from "react";
 
-const SectionGrid = ({ event }) => {
-  // ---------- DATA MANIPULATION ----------
+import PostAttendees from "./PostAttendees/PostAttendees";
+
+const SectionGrid = ({ event, fetchGetEvents }) => {
+  // -- Data Manipulation --
   const datesPerAttendees = [];
 
   event.dates.forEach((date) => {
@@ -29,7 +31,7 @@ const SectionGrid = ({ event }) => {
     });
   });
 
-  // ---------- JSX ----------
+  // -- JSX --
   return (
     <section
       className="bigGrid"
@@ -62,17 +64,7 @@ const SectionGrid = ({ event }) => {
       ))}
 
       {/* Users inputs (name & availabilities) (Fetch POST-ATTENDEES) */}
-      <div className="sendBtnAndInputNameDiv flexCenter">
-        <input type="text" placeholder="User name" />
-        <button className="sendBtn">Send</button>
-      </div>
-
-      {event.dates.map((date) => (
-        <div className="inputsBtns flexCenter">
-          <button className="avBtn"></button>
-          <button className="avBtn"></button>
-        </div>
-      ))}
+      <PostAttendees event={event} fetchGetEvents={fetchGetEvents} />
     </section>
   );
 };

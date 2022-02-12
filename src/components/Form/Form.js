@@ -1,14 +1,19 @@
-import React, { useRef } from "react";
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
+
 import DateInputs from "./DateInputs/DateInputs";
 
-const Form = ({ dateInputs, setDateInputs, fetchGetEvents, dateRef }) => {
-  // ---------- USE-REF ----------
-  const nameRef = useRef();
-  const authorRef = useRef();
-  const descriptionRef = useRef();
-
-  // ---------- FUNCTIONS ----------
+const Form = ({
+  // -- Props --
+  dateInputs,
+  setDateInputs,
+  fetchGetEvents,
+  nameRef,
+  dateRef,
+  authorRef,
+  descriptionRef,
+}) => {
+  // -- Functions --
   const addDateInput = (e) => {
     e.preventDefault();
     setDateInputs([...dateInputs, { id: uuidv4() }]);
@@ -40,9 +45,14 @@ const Form = ({ dateInputs, setDateInputs, fetchGetEvents, dateRef }) => {
     }
   };
 
-  // ---------- JSX ----------
+  // -- JSX --
   return (
-    <form className="flexCenter" id="newEventForm" action="">
+    <form
+      className="flexCenter"
+      id="newEventForm"
+      action=""
+      onSubmit={fetchPostEvent}
+    >
       <input
         ref={nameRef}
         id="newEventName"
@@ -58,10 +68,12 @@ const Form = ({ dateInputs, setDateInputs, fetchGetEvents, dateRef }) => {
             className="newEventDates"
             type="date"
           />
+
           <button id="addDatesBtn" onClick={addDateInput}>
             +
           </button>
         </div>
+
         {dateInputs.map((dateInput) => (
           <DateInputs
             key={dateInput.id}
@@ -78,6 +90,7 @@ const Form = ({ dateInputs, setDateInputs, fetchGetEvents, dateRef }) => {
         type="text"
         placeholder="Author"
       />
+
       <input
         ref={descriptionRef}
         id="newEventDescription"
@@ -85,12 +98,7 @@ const Form = ({ dateInputs, setDateInputs, fetchGetEvents, dateRef }) => {
         placeholder="Description"
       />
 
-      <input
-        id="newEventSubmit"
-        type="submit"
-        value=""
-        onClick={fetchPostEvent}
-      />
+      <input id="newEventSubmit" type="submit" value="" />
     </form>
   );
 };

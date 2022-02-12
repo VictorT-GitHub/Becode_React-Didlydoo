@@ -1,31 +1,21 @@
 import React from "react";
+
+import EventBtns from "./EventBtns/EventBtns";
 import SectionGrid from "./SectionGrid/SectionGrid";
 
-const Event = ({ event, fetchGetEvents, dateInputs, dateRef }) => {
-  // ---------- FUNCTIONS ----------
-  const fetchPatchEvent = () => {};
-
-  const fetchAddDates = () => {
-    const dateInputsValues = [];
-    dateInputs.map((dateInput) => dateInputsValues.push(dateInput.date));
-
-    fetch(`http://localhost:9000/api/events/${event.id}/add_dates`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        dates: [dateRef.current.value, ...dateInputsValues],
-      }),
-    }).then(() => fetchGetEvents());
-  };
-
-  const fetchDeleteEvent = () =>
-    fetch(`http://localhost:9000/api/events/${event.id}`, {
-      method: "DELETE",
-    }).then(() => fetchGetEvents());
-
-  // ---------- JSX ----------
+const Event = ({
+  // -- Props --
+  event,
+  fetchGetEvents,
+  dateInputs,
+  nameRef,
+  dateRef,
+  authorRef,
+  descriptionRef,
+  eventsList,
+  setEventsList,
+}) => {
+  // -- JSX --
   return (
     <li className="eventContainer">
       <section>
@@ -34,23 +24,23 @@ const Event = ({ event, fetchGetEvents, dateInputs, dateRef }) => {
             {event.name} by {event.author}
           </h3>
 
-          <div>
-            <button className="modifyEventBtn" onClick={fetchPatchEvent}>
-              Modify
-            </button>
-            <button className="addDatesBtn" onClick={fetchAddDates}>
-              Add date(s)
-            </button>
-            <button className="deleteEventBtn" onClick={fetchDeleteEvent}>
-              Delete
-            </button>
-          </div>
+          <EventBtns
+            event={event}
+            fetchGetEvents={fetchGetEvents}
+            dateInputs={dateInputs}
+            nameRef={nameRef}
+            dateRef={dateRef}
+            authorRef={authorRef}
+            descriptionRef={descriptionRef}
+            eventsList={eventsList}
+            setEventsList={setEventsList}
+          />
         </div>
 
         <p>{event.description}</p>
       </section>
 
-      <SectionGrid event={event} />
+      <SectionGrid event={event} fetchGetEvents={fetchGetEvents} />
     </li>
   );
 };

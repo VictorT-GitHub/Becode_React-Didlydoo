@@ -33,7 +33,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ------------------------ HEADER ------------------------ */
+/* ------ HEADER ------ */
 h1 {
   font-size: 75px;
   font-weight: 100;
@@ -41,7 +41,7 @@ h1 {
   padding: 40px;
 }
 
-/* --------------------------- MAIN --------------------------- */
+/* ------ MAIN ------ */
 input {
   background: url("./images/Screenshot from 2021-11-18 15-43-17.png") center;
 
@@ -49,7 +49,12 @@ input {
   width: 180px;
 
   margin-right: 12px;
-
+}
+input[type="text"] {
+  cursor: text;
+}
+input[type="submit"],
+input[type="date"] {
   cursor: pointer;
 }
 
@@ -60,7 +65,7 @@ button {
   cursor: pointer;
 }
 
-/* ------------ FORMULAIRE HTML : POST EVENT ------------ */
+/* -- FORMULAIRE HTML : POST EVENT -- */
 #dateInputsContainer {
   max-height: 100vw;
   display: flex;
@@ -73,7 +78,6 @@ button {
 .newEventDates {
   margin-right: 0;
   margin-top: 3px;
-
   color: #5a5a5a;
 }
 #addDatesBtn {
@@ -109,7 +113,7 @@ input,
   background-size: cover;
 }
 
-/* ------------ EVENTS SECTIONS (.eventContainer) ------------ */
+/* -- EVENTS SECTIONS (.eventContainer) -- */
 .eventContainer {
   padding-top: 30px;
   padding-bottom: 45px;
@@ -128,12 +132,11 @@ h3 {
 }
 p {
   margin-bottom: 16px;
-
   font-size: 16px;
   padding: 16px;
 }
 
-/* BTNS modify add_dates delete */
+/* BTNS modify/add_dates/delete */
 .modifyEventBtn {
   background: url("./images/Screenshot from 2021-11-18 18-27-05.png") center;
   width: 72px;
@@ -150,7 +153,6 @@ p {
 .deleteEventBtn {
   background-size: cover;
   height: 32px;
-
   transform: translateY(8px);
 }
 
@@ -162,13 +164,11 @@ p {
 h5 {
   font-weight: normal;
   font-size: 18px;
-
   padding: 4px;
 }
 h6 {
   font-weight: normal;
   font-size: 18px;
-
   padding: 4px 12px;
   border: 1px solid black;
 }
@@ -193,7 +193,6 @@ h6 {
   width: 52px;
   background: url("./images/Screenshot from 2021-11-18 17-35-33.png") center;
   background-size: cover;
-
   transform: translateY(4px);
 }
 .inputsBtns {
@@ -205,9 +204,7 @@ h6 {
   background: transparent;
   height: 21px;
   width: 34px;
-
   margin-left: 6px;
   margin-right: 6px;
-
   transform: translateY(8px);
 }

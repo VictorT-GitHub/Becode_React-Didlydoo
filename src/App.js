@@ -1,32 +1,32 @@
+import "./app.css";
 import React, { useState, useEffect, useRef } from "react";
+
 import Form from "./components/Form/Form";
 import Event from "./components/Event/Event";
-import "./app.css";
 
 function App() {
-  // ---------- FUNCTIONS ----------
-  // funct: Fetch GET all events -> setEventsList()
-  const fetchGetEvents = () => {
-    fetch("http://localhost:9000/api/events")
-      .then((res) => res.json())
-      .then((data) => {
-        let fetchEventsArray = [];
-        data.map((event) => fetchEventsArray.push(event));
-        setEventsList(fetchEventsArray);
-      });
-  };
-
-  // ---------- USE-REF ----------
+  // -- useRef --
+  const nameRef = useRef();
   const dateRef = useRef();
+  const authorRef = useRef();
+  const descriptionRef = useRef();
 
-  // ---------- USE-STATE ----------
+  // -- useState --
   const [eventsList, setEventsList] = useState([]);
   const [dateInputs, setDateInputs] = useState([]);
 
-  // ---------- USE-EFFECT ----------
+  // -- useEffect --
   useEffect(() => fetchGetEvents(), []);
 
-  // ---------- JSX ----------
+  // -- Functions --
+  // Function Fetch GET all events -> setEventsList()
+  const fetchGetEvents = () => {
+    fetch("http://localhost:9000/api/events")
+      .then((res) => res.json())
+      .then((data) => setEventsList(data));
+  };
+
+  // -- JSX --
   return (
     <>
       <header>
@@ -38,7 +38,10 @@ function App() {
           dateInputs={dateInputs}
           setDateInputs={setDateInputs}
           fetchGetEvents={fetchGetEvents}
+          nameRef={nameRef}
           dateRef={dateRef}
+          authorRef={authorRef}
+          descriptionRef={descriptionRef}
         />
 
         <ul id="allEventsContainer">
@@ -48,7 +51,12 @@ function App() {
               event={event}
               fetchGetEvents={fetchGetEvents}
               dateInputs={dateInputs}
+              nameRef={nameRef}
               dateRef={dateRef}
+              authorRef={authorRef}
+              descriptionRef={descriptionRef}
+              eventsList={eventsList}
+              setEventsList={setEventsList}
             />
           ))}
         </ul>

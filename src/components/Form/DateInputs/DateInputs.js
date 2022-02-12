@@ -1,9 +1,8 @@
 import React from "react";
 
 const DateInputs = ({ id, dateInputs, setDateInputs }) => {
-  // ---------- FUNCTIONS ----------
-  const deleteDateInput = (e) => {
-    e.preventDefault();
+  // -- Functions --
+  const deleteDateInput = () => {
     const newDateInputs = dateInputs.filter((dateInput) => dateInput.id !== id);
     setDateInputs(newDateInputs);
   };
@@ -15,7 +14,7 @@ const DateInputs = ({ id, dateInputs, setDateInputs }) => {
     setDateInputs(newDateInputs);
   };
 
-  // ---------- JSX ----------
+  // -- JSX --
   return (
     <div>
       <input
